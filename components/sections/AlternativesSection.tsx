@@ -4,11 +4,11 @@ export default function AlternativesSection() {
       <div className="mx-auto flex max-w-[1200px] flex-col gap-24">
         <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr]">
           <div>
-            <h2 className="text-[clamp(2.2rem,4vw,3.6rem)] font-semibold leading-tight">
+            <h2 className="text-[clamp(2.2rem,4vw,3.6rem)] font-medium leading-tight">
               Do-It-Yourself
               <span className="block">Website Builders</span>
             </h2>
-            <p className="mt-4 max-w-[520px] text-lg text-white/60">
+            <p className="mt-4 max-w-[520px] text-lg font-normal text-white/60">
               give you a toolbox, not a finished website
             </p>
             <div className="mt-6">
@@ -61,11 +61,11 @@ export default function AlternativesSection() {
             />
           </div>
           <div>
-            <h2 className="text-[clamp(2.2rem,4vw,3.6rem)] font-semibold leading-tight">
+            <h2 className="text-[clamp(2.2rem,4vw,3.6rem)] font-medium leading-tight">
               Website
               <span className="block">Agencies</span>
             </h2>
-            <p className="mt-4 max-w-[520px] text-lg text-white/60">
+            <p className="mt-4 max-w-[520px] text-lg font-normal text-white/60">
               are expensive and you still need to learn how to maintain your
               website
             </p>

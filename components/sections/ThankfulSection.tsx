@@ -25,15 +25,15 @@ export default function ThankfulSection() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[linear-gradient(180deg,rgba(11,15,16,0.9)_0%,rgba(11,15,16,0.4)_55%,rgba(11,15,16,0)_100%)]" />
       <div className="relative mx-auto grid max-w-[1200px] items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
         <div>
-          <h2 className="text-[clamp(2.6rem,4.6vw,4.3rem)] font-semibold leading-tight">
+          <h2 className="text-[clamp(2.6rem,4.6vw,4.3rem)] font-medium leading-tight">
             Thankfully,
             <span className="block">there is UENI.</span>
           </h2>
-          <p className="mt-6 max-w-[520px] text-lg text-white/70">
+          <p className="mt-6 max-w-[520px] text-lg font-accent font-normal text-white/70">
             The truly affordable done-for-you website solution.
           </p>
           <button
-            className="mt-10 rounded-[12px] bg-[#ff5a1f] px-10 py-4 text-base font-semibold text-white shadow-[0_12px_26px_rgba(255,90,31,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(255,90,31,0.45)]"
+            className="mt-10 rounded-[12px] bg-[#ff5a1f] px-10 py-4 text-base font-medium text-white shadow-[0_12px_26px_rgba(255,90,31,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(255,90,31,0.45)]"
             type="button"
           >
             Get Started
