@@ -21,7 +21,7 @@ const cards = [
 export default function ThankfulSection() {
   return (
     <section className="relative overflow-hidden bg-[#0b0f10] px-6 py-24 text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_95%_at_50%_108%,rgba(94,158,150,0.65)_0%,rgba(11,15,16,0.12)_45%,rgba(11,15,16,0.95)_76%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(150%_120%_at_50%_60%,rgba(112,190,180,0.85)_0%,rgba(11,15,16,0.12)_50%,rgba(11,15,16,0.95)_82%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[linear-gradient(180deg,rgba(11,15,16,0.9)_0%,rgba(11,15,16,0.4)_55%,rgba(11,15,16,0)_100%)]" />
       <div className="relative mx-auto grid max-w-[1200px] items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
         <div>
