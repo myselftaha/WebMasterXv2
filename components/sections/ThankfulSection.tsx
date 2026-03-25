@@ -6,23 +6,23 @@ const cards = [
   {
     src: "/images%203/65df79f9145a092a096b0d7b_Bobs%20-%20Mobile-p-500.webp",
     alt: "Bobs mobile website preview",
-    sizeClass: "w-[min(260px,60vw)]",
-    from: { x: -22, y: -8, rotate: -4, scale: 0.98 },
-    to: { x: -160, y: -34, rotate: -12, scale: 1 }
+    sizeClass: "w-[min(320px,72vw)]",
+    from: { x: -16, y: 8, rotate: -3, scale: 0.98 },
+    to: { x: -260, y: -22, rotate: -8, scale: 1.08 }
   },
   {
     src: "/images%203/65df79f94e854b95f0c1017d_Minerva%20-%20Mobile-p-500.webp",
     alt: "Minerva mobile website preview",
-    sizeClass: "z-10 w-[min(300px,70vw)]",
-    from: { x: 0, y: 0, rotate: 0, scale: 1 },
-    to: { x: 0, y: -8, rotate: 0, scale: 1.02 }
+    sizeClass: "z-10 w-[min(320px,72vw)]",
+    from: { x: 0, y: 12, rotate: 0, scale: 1 },
+    to: { x: 0, y: -34, rotate: 0, scale: 1.08 }
   },
   {
     src: "/images%203/65df79fa4b6f581652e1995a_Mr%20Handyman%20-%20Mobile-p-500.webp",
     alt: "Mr Handyman mobile website preview",
-    sizeClass: "w-[min(260px,60vw)]",
-    from: { x: 22, y: -6, rotate: 4, scale: 0.98 },
-    to: { x: 160, y: -26, rotate: 12, scale: 1 }
+    sizeClass: "w-[min(320px,72vw)]",
+    from: { x: 16, y: 8, rotate: 3, scale: 0.98 },
+    to: { x: 260, y: -18, rotate: 8, scale: 1.08 }
   }
 ];
 
@@ -68,11 +68,11 @@ export default function ThankfulSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#0b0f10] px-6 py-24 text-white"
+      className="relative overflow-hidden bg-[#0b0f10] px-6 py-32 text-white"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(150%_120%_at_50%_60%,rgba(112,190,180,0.85)_0%,rgba(11,15,16,0.12)_50%,rgba(11,15,16,0.95)_82%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[linear-gradient(180deg,rgba(11,15,16,0.9)_0%,rgba(11,15,16,0.4)_55%,rgba(11,15,16,0)_100%)]" />
-      <div className="relative mx-auto grid max-w-[1200px] items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
+      <div className="relative mx-auto grid min-h-[640px] max-w-[1300px] items-center gap-16 lg:grid-cols-[1fr_1.05fr]">
         <div>
           <h2 className="text-[clamp(2.6rem,4.6vw,4.3rem)] font-medium leading-tight">
             Thankfully,
@@ -107,7 +107,7 @@ export default function ThankfulSection() {
                 />
               );
             })}
-            <div className="h-[440px] w-[340px] opacity-0" aria-hidden="true" />
+            <div className="h-[500px] w-[420px] opacity-0" aria-hidden="true" />
           </div>
         </div>
       </div>
