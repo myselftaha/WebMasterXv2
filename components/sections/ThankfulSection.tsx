@@ -1,69 +1,79 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import type { MotionValue } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 const cards = [
   {
     src: "/images%203/65df79f9145a092a096b0d7b_Bobs%20-%20Mobile-p-500.webp",
     alt: "Bobs mobile website preview",
-    sizeClass: "w-[min(320px,72vw)]",
+    sizeClass: "w-[min(420px,82vw)]",
     from: { x: -16, y: 8, rotate: -3, scale: 0.98 },
     to: { x: -260, y: -22, rotate: -8, scale: 1.08 }
   },
   {
     src: "/images%203/65df79f94e854b95f0c1017d_Minerva%20-%20Mobile-p-500.webp",
     alt: "Minerva mobile website preview",
-    sizeClass: "z-10 w-[min(320px,72vw)]",
+    sizeClass: "w-[min(480px,86vw)]",
     from: { x: 0, y: 12, rotate: 0, scale: 1 },
     to: { x: 0, y: -34, rotate: 0, scale: 1.08 }
   },
   {
     src: "/images%203/65df79fa4b6f581652e1995a_Mr%20Handyman%20-%20Mobile-p-500.webp",
     alt: "Mr Handyman mobile website preview",
-    sizeClass: "w-[min(320px,72vw)]",
+    sizeClass: "w-[min(420px,82vw)]",
     from: { x: 16, y: 8, rotate: 3, scale: 0.98 },
     to: { x: 260, y: -18, rotate: 8, scale: 1.08 }
   }
 ];
 
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(max, Math.max(min, value));
+type CardMotion = {
+  x: number;
+  y: number;
+  rotate: number;
+  scale: number;
+};
 
-const lerp = (start: number, end: number, t: number) =>
-  start + (end - start) * t;
+const useCardMotion = (
+  progress: MotionValue<number>,
+  motion: {
+    from: CardMotion;
+    to: CardMotion;
+  }
+) => {
+  const x = useTransform(progress, [0, 1], [motion.from.x, motion.to.x]);
+  const y = useTransform(progress, [0, 1], [motion.from.y, motion.to.y]);
+  const rotate = useTransform(progress, [0, 1], [motion.from.rotate, motion.to.rotate]);
+  const scale = useTransform(progress, [0, 1], [motion.from.scale, motion.to.scale]);
+
+  return { x, y, rotate, scale };
+};
 
 export default function ThankfulSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [progress, setProgress] = useState(0);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 85%", "start 25%"]
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 22,
+    mass: 0.3
+  });
 
-  useEffect(() => {
-    let raf = 0;
-
-    const update = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const viewport = window.innerHeight;
-      const start = viewport * 0.85;
-      const end = viewport * 0.25;
-      const t = clamp((start - rect.top) / (start - end), 0, 1);
-      setProgress(t);
-    };
-
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
+  const leftMotion = useCardMotion(smoothProgress, {
+    from: cards[0].from,
+    to: cards[0].to
+  });
+  const centerMotion = useCardMotion(smoothProgress, {
+    from: cards[1].from,
+    to: cards[1].to
+  });
+  const rightMotion = useCardMotion(smoothProgress, {
+    from: cards[2].from,
+    to: cards[2].to
+  });
 
   return (
     <section
@@ -72,7 +82,7 @@ export default function ThankfulSection() {
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(150%_120%_at_50%_60%,rgba(112,190,180,0.85)_0%,rgba(11,15,16,0.12)_50%,rgba(11,15,16,0.95)_82%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[linear-gradient(180deg,rgba(11,15,16,0.9)_0%,rgba(11,15,16,0.4)_55%,rgba(11,15,16,0)_100%)]" />
-      <div className="relative mx-auto grid min-h-[640px] max-w-[1300px] items-center gap-16 lg:grid-cols-[1fr_1.05fr]">
+      <div className="relative mx-auto grid min-h-[760px] max-w-[1500px] items-center gap-16 lg:grid-cols-[0.95fr_1.35fr]">
         <div>
           <h2 className="text-[clamp(2.6rem,4.6vw,4.3rem)] font-medium leading-tight">
             Thankfully,
@@ -90,24 +100,31 @@ export default function ThankfulSection() {
         </div>
         <div className="relative flex items-center justify-center">
           <div className="relative flex items-center justify-center">
-            {cards.map((card) => {
-              const x = lerp(card.from.x, card.to.x, progress);
-              const y = lerp(card.from.y, card.to.y, progress);
-              const rotate = lerp(card.from.rotate, card.to.rotate, progress);
-              const scale = lerp(card.from.scale, card.to.scale, progress);
-              return (
-                <img
-                  key={card.src}
-                  src={card.src}
-                  alt={card.alt}
-                  className={`absolute left-1/2 top-1/2 rounded-[36px] shadow-[0_30px_60px_rgba(0,0,0,0.55)] ${card.sizeClass}`}
-                  style={{
-                    transform: `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), 0) rotate(${rotate}deg) scale(${scale})`
-                  }}
-                />
-              );
-            })}
-            <div className="h-[500px] w-[420px] opacity-0" aria-hidden="true" />
+            <div className="absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2">
+              <motion.img
+                src={cards[0].src}
+                alt={cards[0].alt}
+                className={`rounded-[36px] shadow-[0_30px_60px_rgba(0,0,0,0.55)] ${cards[0].sizeClass}`}
+                style={leftMotion}
+              />
+            </div>
+            <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+              <motion.img
+                src={cards[1].src}
+                alt={cards[1].alt}
+                className={`rounded-[36px] shadow-[0_30px_60px_rgba(0,0,0,0.55)] ${cards[1].sizeClass}`}
+                style={centerMotion}
+              />
+            </div>
+            <div className="absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2">
+              <motion.img
+                src={cards[2].src}
+                alt={cards[2].alt}
+                className={`rounded-[36px] shadow-[0_30px_60px_rgba(0,0,0,0.55)] ${cards[2].sizeClass}`}
+                style={rightMotion}
+              />
+            </div>
+            <div className="h-[620px] w-[540px] opacity-0" aria-hidden="true" />
           </div>
         </div>
       </div>
